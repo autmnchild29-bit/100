@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Минск: Было и Стало</title>
     
-    <!-- Подключаем библиотеку для слайдера -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/zuckey-twentytwenty@1.0.0/twentytwenty.css">
-    
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: Arial, sans-serif;
             max-width: 800px;
@@ -30,10 +33,96 @@
             font-size: 16px;
         }
         
-        .twentytwenty-container {
+        /* Контейнер слайдера */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             border-radius: 8px;
+            cursor: col-resize;
+        }
+        
+        .slider-container img {
+            width: 100%;
+            display: block;
+            user-select: none;
+        }
+        
+        /* Верхнее изображение (архивное) */
+        .slider-before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
             overflow: hidden;
+        }
+        
+        .slider-before img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%; /* В 2 раза шире контейнера */
+            max-width: none;
+        }
+        
+        /* Ползунок */
+        .slider-handle {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: white;
+            cursor: col-resize;
+            z-index: 10;
+        }
+        
+        .slider-handle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+        
+        .slider-handle::after {
+            content: '◄ ►';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #333;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        /* Метки */
+        .slider-label {
+            position: absolute;
+            top: 20px;
+            padding: 8px 16px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            font-size: 14px;
+            border-radius: 4px;
+            z-index: 5;
+        }
+        
+        .label-before {
+            left: 20px;
+        }
+        
+        .label-after {
+            right: 20px;
         }
         
         .info {
@@ -46,7 +135,7 @@
         
         .info h2 {
             color: #333;
-            margin-top: 0;
+            margin-bottom: 10px;
         }
         
         .info p {
@@ -54,43 +143,3 @@
             color: #555;
         }
     </style>
-</head>
-<body>
-    <h1>Минск: Наложение эпох</h1>
-    <p class="description">Двигай ползунок, чтобы увидеть, как выглядело это место в годы войны</p>
-    
-    <!-- Контейнер для слайдера -->
-    <div class="twentytwenty-container">
-        <!-- ВАЖНО: Замени пути к фотографиям, если они называются по-другому -->
-        <img src="archive.jpg" alt="Минск в годы войны">
-        <img src="modern.jpg" alt="Минск сегодня">
-    </div>
-    
-    <!-- Историческая справка -->
-    <div class="Дом Правительства в Минске: сегодня и 3 июля 1944 года">
-        <h2>Историческая справка</h2>
-        <p>
-            <!-- Здесь напиши краткую историю этого места -->
-            Например: Это здание было построено в 1944 году как музей истории Великой Отечественной войны. 
-            Во время войны на этом месте находились разрушенные кварталы Минска. 
-            После освобождения города здесь началось восстановление столицы Беларуси.
-        </p>
-    </div>
-    
-    <!-- Подключаем JavaScript библиотеку -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/zuckey-twentytwenty@1.0.0/jquery.twentytwenty.js"></script>
-    
-    <!-- Инициализируем слайдер -->
-    <script>
-        $(document).ready(function(){
-            $(".twentytwenty-container").twentytwenty({
-                default_offset_pct: 0.5, // Начальная позиция ползунка (50%)
-                orientation: 'horizontal', // Горизонтальный слайдер
-                before_label: 'В годы войны',
-                after_label: 'Сегодня'
-            });
-        });
-    </script>
-</body>
-</html>
